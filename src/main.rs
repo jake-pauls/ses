@@ -1,28 +1,13 @@
 use std::process::Command;
 use std::io::{self, Write};
 use anyhow::Result;
-use clap::Parser;
 
-/// Find a file (and actually do something with it) using es
-#[derive(Parser)]
-#[clap(author, version, about)]
-struct Args {
-    /// Target file
-    file: String,
-    /// Run this command on the es output 
-    #[clap(short)]
-    run: String,
-    /// Match case when searching indexed files
-    #[clap(short)]
-    case: bool,
-    /// Match whole words when searching indexed files
-    #[clap(short)]
-    whole_words: bool,
-}
+mod cli;
 
 fn main() -> Result<()> {
-    let args = Args::parse();
+    let args = cli::args::get_arg_list();
 
+    // Check boolean flags
     let mut ww = String::from(""); 
     if args.whole_words {
         ww = String::from("-w");
@@ -45,12 +30,14 @@ fn main() -> Result<()> {
 
     // Retrieve file paths from es
     // Parse multiple file paths ???
-    let res = String::from_utf8(es_out.stdout).unwrap();
+    let file_path = String::from_utf8(es_out.stdout).unwrap();
 
     // Create cmd to do something
-    let mut run_cmd = Command::new("cmd");
-    run_cmd.args(&["/C", &args.run]).arg(res);
-    run_cmd.status().expect("command failed to start, do you have the command installed and on your system PATH?");
+    if !args.run.is_none() {
+        let mut run_cmd = Command::new("cmd");
+        run_cmd.args(&["/C", &args.run.unwrap()]).arg(file_path);
+        run_cmd.status().expect("command failed to start, do you have the command installed and on your system PATH?");
+    }
 
     Ok(())
 }
