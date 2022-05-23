@@ -1,6 +1,6 @@
 use clap::Parser;
  
-/// Find a file (and actually do something with it) using es ⚡📎 
+/// Find a file (and actually do something with it) using es 🦸📎 
 #[derive(Parser)]
 #[clap(author, version, about, usage = "ses <FILE> [OPTIONS]")]
 pub struct Args {

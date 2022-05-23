@@ -1,4 +1,4 @@
-<h3 align="center">⚡📎</h3>
+<h3 align="center">🦸📎</h3>
 
 ### Why?
 While working, my mentor and I were sick of copying the `es` output from the terminal - we actually wanted to do something with it. 

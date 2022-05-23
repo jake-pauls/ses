@@ -1,3 +1,5 @@
-//! Contains implementation for clap CLI 
+//! Contains implementation for CLI elementes
 
 pub mod args;
+pub mod event;
+pub mod process;
