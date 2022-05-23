@@ -8,9 +8,10 @@ fn main() -> Result<()> {
     let es = cli::process::spawn_es_process(&args);
     assert!(es.is_ok());
 
-    // Retrieve and split file paths from es
+    // Retrieve and split file paths from es, last element is always an new line
     let output = String::from_utf8(es.unwrap().stdout).unwrap();
     let mut files: Vec<&str> = output.split("\n").collect();
+    files.pop();
 
     // Run selection option for multiple files
     let target = cli::event::run_select_opt(&args, &mut files).unwrap();

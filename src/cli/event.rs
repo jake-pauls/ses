@@ -1,5 +1,4 @@
 use ansi_term::Color::Blue;
-use ansi_term::Style;
 use anyhow::Result;
 use dialoguer::theme::ColorfulTheme;
 use dialoguer::Select;
@@ -12,7 +11,6 @@ pub fn run_select_opt(args: &Args, opts: &mut Vec<&str>) -> Result<String> {
 
     // TODO: Build trait for output formatter
     let mut cmd: String = args.run.to_owned();
-    cmd = Style::new().bold().paint(cmd).to_string();
     cmd = Blue.paint(cmd).to_string();
 
     let prompt: String = txt.clone() + &cmd;

@@ -1,9 +1,37 @@
 <h3 align="center">🦸📎</h3>
 
 ### Why?
-While working, my mentor and I were sick of copying the `es` output from the terminal - we actually wanted to do something with it. 
+While working, my mentor and I were sick of copying the `es` output from the terminal. 
 
-Also, piping from Powershell (or even WSL output) isn't fun and a return result of multiple files proves to be a pain.
+Also, piping from Powershell (or even WSL output) isn't fun and handling a return result of multiple files proves to be a pain.
+
+Everything is created by [Voidtools](https://www.voidtools.com/), not me. Get `es` [here](https://www.voidtools.com/support/everything/command_line_interface/).
+
+### Options
+
+```
+ses 0.1.0
+Find a file (and actually do something with it) using es 🦸📎
+
+USAGE:
+    ses.exe [OPTIONS] <FILE>
+
+ARGS:
+    <FILE>    Target file
+
+OPTIONS:
+    -c, --case                 Match case when searching indexed files
+    -h, --help                 Print help information
+    -m, --max-results <MAX>    Limit the number of results to <NUM>
+    -o, --offset <OFFSET>      Show results from the zero-based <OFFSET> onwards
+    -p, --match-path           Match full path and filename
+    -r, --run <RUN>            Run this command on the selected file [default: explorer]
+        --regex <REGEX>        Compare results against a regex expression, escape spaces with double
+                               quotes
+    -s, --sort                 Sort by full path
+    -V, --version              Print version information
+    -w, --whole-words          Match whole words when searching indexed files
+```
 
 ### Crates
 - [anyhow](https://crates.io/crates/anyhow)
@@ -14,7 +42,7 @@ Also, piping from Powershell (or even WSL output) isn't fun and a return result 
 ### Build Local Executable
 
 ```
-cargo build --target x86_64-pc-windows-gnu
+cargo build --release --target x86_64-pc-windows-gnu
 ```
 
-The executable will be placed in `target/x86_64-pc-windows-gnu/debug/ses.exe`
+The executable will be placed in `target/x86_64-pc-windows-gnu/release/ses.exe`
