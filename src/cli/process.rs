@@ -1,3 +1,4 @@
+use ansi_term::Color::{Cyan, Fixed};
 use anyhow::Result;
 use std::process::{Command, Output};
 
@@ -5,20 +6,28 @@ use super::args::Args;
 
 /// Spawns 'es' process with provided arguments
 pub fn spawn_es_process(args: &Args) -> Result<Output> {
-    // Check boolean flags
-    // TODO: add more robust checks for es flags?
-    let mut ww = String::from("");
-    if args.whole_words {
-        ww = String::from("-w");
-    }
+    let whole_words = if args.whole_words_flag { "-whole-words" } else { "" };
+    let case = if args.case_flag { "-case" } else { "" };
+    let path = if args.path_flag { "-match-path" } else { "" };
+    let sort = if args.sort_flag { "-s" } else { "" };
 
-    let mut c: String = String::from("");
-    if args.case {
-        c = String::from("-i");
-    }
+    let offset: u32 = if args.offset.is_none() { 0 } else { args.offset.unwrap() };
 
     let mut es_cmd = cmd("cmd");
-    es_cmd.args(&["/C", "es"]).arg(&args.file).arg(ww).arg(c);
+    es_cmd
+        .args(&["/C", "es"])
+        .args(&[&args.file, whole_words, case, path, sort])
+        .args(&["-offset", &offset.to_string()]);
+
+    // Check if a regex was included
+    if !args.regex.is_none() {
+        es_cmd.args(&["-regex", &args.regex.as_ref().unwrap()]);
+    }
+
+    // Check if a value for max was included
+    if !args.max.is_none() {
+        es_cmd.args(&["-max-results", &args.max.unwrap().to_string()]);
+    }
 
     // Start es process and return output
     let es_out = es_cmd
@@ -39,6 +48,10 @@ pub fn spawn_run_process(args: &Args, file: &str) -> Result<()> {
             .arg(path)
             .status()
             .expect("explorer failed to start, is something broken?");
+
+        let msg = Fixed(15).paint("✔ [📎] Successfully opened directory:");
+        let out = Cyan.paint(get_explorer_path(file));
+        println!("{} {}", msg, out);
     } else {
         run_cmd = cmd("cmd");
         run_cmd.args(&["/C", &args.run]).arg(file).status().expect(
