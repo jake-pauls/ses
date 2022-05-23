@@ -12,7 +12,7 @@ pub fn run_select_opt(args: &Args, opts: &mut Vec<&str>) -> Result<String>
     let txt: String = "[📎] Pick a file to open in ".to_owned();
 
     // TODO: Build trait for output formatter
-    let mut cmd: String = args.run.as_ref().unwrap().to_owned();
+    let mut cmd: String = args.run.to_owned();
     cmd = Style::new().bold().paint(cmd).to_string();
     cmd = Blue.paint(cmd).to_string();
 

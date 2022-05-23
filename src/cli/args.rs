@@ -6,9 +6,9 @@ use clap::Parser;
 pub struct Args {
     /// Target file
     pub file: String,
-    /// Run this command on the es output 
-    #[clap(short)]
-    pub run: Option<String>,
+    /// Run this command on the selected file 
+    #[clap(short, default_value = "explorer")]
+    pub run: String,
     /// Match case when searching indexed files
     #[clap(short)]
     pub case: bool,

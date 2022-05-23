@@ -15,11 +15,9 @@ fn main() -> Result<()> {
     // Run selection option for multiple files
     let target = cli::event::run_select_opt(&args, &mut files).unwrap();
 
-    // Create cmd to do something
-    if !args.run.is_none() {
-        let cmd = cli::process::spawn_run_process(&args, &target);
-        assert!(cmd.is_ok());
-    }
+    // Spawn cmd to do something, a default is always set
+    let cmd = cli::process::spawn_run_process(&args, &target);
+    assert!(cmd.is_ok());
 
     Ok(())
 }
