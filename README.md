@@ -6,7 +6,6 @@ While working, my mentor and I were sick of copying the `es` output from the ter
 Also, piping from Powershell (or even WSL output) isn't fun and handling a return result of multiple files proves to be a pain.
 
 *Everything* (search engine) is created by [Voidtools](https://www.voidtools.com/), not me. Get `es` [here](https://www.voidtools.com/support/everything/command_line_interface/).
-
 ### Options
 
 ```
