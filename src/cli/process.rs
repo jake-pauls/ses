@@ -3,6 +3,8 @@ use anyhow::Result;
 use std::process::{Command, Output};
 
 use super::args::Args;
+use super::log;
+use super::log::LogType;
 
 /// Spawns 'es' process with provided arguments
 pub fn spawn_es_process(args: &Args) -> Result<Output> {
@@ -49,9 +51,9 @@ pub fn spawn_run_process(args: &Args, file: &str) -> Result<()> {
             .status()
             .expect("explorer failed to start, is something broken?");
 
-        let msg = Fixed(15).paint("✔ [📎] Successfully opened directory:");
-        let out = Cyan.paint(get_explorer_path(file));
-        println!("{} {}", msg, out);
+        let msg = Fixed(15).paint("Successfully opened directory ").to_string();
+        let out = Cyan.paint(get_explorer_path(file)).to_string();
+        log::base(&(msg + &out), LogType::Success);
     } else {
         run_cmd = cmd("cmd");
         run_cmd.args(&["/C", &args.run]).arg(file).status().expect(

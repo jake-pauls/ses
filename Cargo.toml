@@ -1,8 +1,8 @@
 [package]
 name = "ses"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
-description = "Find a file (and actually do something with it) using es 🦸📎"
+description = "Find a file (and actually do something with it) using es ⚡"
 readme = true 
 repository = "https://github.com/jake-pauls/ses"
 keywords = ["windows", "search", "es", "utility"]
